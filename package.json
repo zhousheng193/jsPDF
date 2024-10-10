@@ -1,6 +1,6 @@
 {
   "name": "jspdf",
-  "version": "2.5.2",
+  "version": "2.5.2-bes.1",
   "homepage": "https://github.com/mrrio/jspdf",
   "description": "PDF Document creation from JavaScript",
   "main": "dist/jspdf.node.min.js",
@@ -31,7 +31,6 @@
   "optionalDependencies": {
     "canvg": "^3.0.6",
     "core-js": "^3.6.0",
-    "dompurify": "^2.5.4",
     "html2canvas": "^1.0.0-rc.5"
   },
   "devDependencies": {
@@ -90,6 +89,7 @@
   "scripts": {
     "start": "ws",
     "build": "rollup --config rollup.config.js",
+    "pack": "npm run build && npm pack",
     "version": "yarpm run build && yarpm run generate-docs && git add -A dist docs",
     "pretest": "yarpm run build",
     "test": "yarpm run test-node && yarpm run test-saucelabs",

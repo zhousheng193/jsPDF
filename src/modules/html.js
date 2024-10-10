@@ -60,45 +60,46 @@ import { globalObject } from "../libs/globalObject.js";
       });
   }
 
-  function loadDomPurify() {
-    return (function() {
-      if (globalObject["DOMPurify"]) {
-        return Promise.resolve(globalObject["DOMPurify"]);
-      }
+  //因dompurify组件的许可证为MPL-2.0, Apache-2.0，被扫描工具识别为中风险，这里屏蔽掉
+  // function loadDomPurify() {
+  //   return (function() {
+  //     if (globalObject["DOMPurify"]) {
+  //       return Promise.resolve(globalObject["DOMPurify"]);
+  //     }
 
-      // @if MODULE_FORMAT='es'
-      return import("dompurify");
-      // @endif
+  //     // @if MODULE_FORMAT='es'
+  //     return import("dompurify");
+  //     // @endif
 
-      // @if MODULE_FORMAT!='es'
-      if (typeof exports === "object" && typeof module !== "undefined") {
-        return new Promise(function(resolve, reject) {
-          try {
-            resolve(require("dompurify"));
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }
-      if (typeof define === "function" && define.amd) {
-        return new Promise(function(resolve, reject) {
-          try {
-            require(["dompurify"], resolve);
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }
-      return Promise.reject(new Error("Could not load dompurify"));
-      // @endif
-    })()
-      .catch(function(e) {
-        return Promise.reject(new Error("Could not load dompurify: " + e));
-      })
-      .then(function(dompurify) {
-        return dompurify.default ? dompurify.default : dompurify;
-      });
-  }
+  //     // @if MODULE_FORMAT!='es'
+  //     if (typeof exports === "object" && typeof module !== "undefined") {
+  //       return new Promise(function(resolve, reject) {
+  //         try {
+  //           resolve(require("dompurify"));
+  //         } catch (e) {
+  //           reject(e);
+  //         }
+  //       });
+  //     }
+  //     if (typeof define === "function" && define.amd) {
+  //       return new Promise(function(resolve, reject) {
+  //         try {
+  //           require(["dompurify"], resolve);
+  //         } catch (e) {
+  //           reject(e);
+  //         }
+  //       });
+  //     }
+  //     return Promise.reject(new Error("Could not load dompurify"));
+  //     // @endif
+  //   })()
+  //     .catch(function(e) {
+  //       return Promise.reject(new Error("Could not load dompurify: " + e));
+  //     })
+  //     .then(function(dompurify) {
+  //       return dompurify.default ? dompurify.default : dompurify;
+  //     });
+  // }
 
   /**
    * Determine the type of a variable/object.
@@ -127,9 +128,10 @@ import { globalObject } from "../libs/globalObject.js";
   var createElement = function(tagName, opt) {
     var el = document.createElement(tagName);
     if (opt.className) el.className = opt.className;
-    if (opt.innerHTML && opt.dompurify) {
-      el.innerHTML = opt.dompurify.sanitize(opt.innerHTML);
-    }
+    //因dompurify组件的许可证为MPL-2.0, Apache-2.0，被扫描工具识别为中风险，这里屏蔽掉
+    // if (opt.innerHTML && opt.dompurify) {
+    //   el.innerHTML = opt.dompurify.sanitize(opt.innerHTML);
+    // }
     for (var key in opt.style) {
       el.style[key] = opt.style[key];
     }
@@ -257,13 +259,19 @@ import { globalObject } from "../libs/globalObject.js";
       type = type || getType(src);
       switch (type) {
         case "string":
-          return this.then(loadDomPurify).then(function(dompurify) {
-            return this.set({
-              src: createElement("div", {
-                innerHTML: src,
-                dompurify: dompurify
-              })
-            });
+            //因dompurify组件的许可证为MPL-2.0, Apache-2.0，被扫描工具识别为中风险，这里屏蔽掉
+          // return this.then(loadDomPurify).then(function(dompurify) {
+          //   return this.set({
+          //     src: createElement("div", {
+          //       innerHTML: src,
+          //       dompurify: dompurify
+          //     })
+          //   });
+          // });
+          return this.set({
+            src: createElement("div", {
+              innerHTML: src
+            })
           });
         case "element":
           return this.set({ src: src });
